@@ -5,7 +5,7 @@ struct AlgorithmStoreView: View {
         VStack {
             Text("AlgorithmStoreView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

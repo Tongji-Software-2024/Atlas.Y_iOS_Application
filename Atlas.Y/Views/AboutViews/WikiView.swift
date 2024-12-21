@@ -5,7 +5,7 @@ struct WikiView: View {
         VStack {
             Text("WikiView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

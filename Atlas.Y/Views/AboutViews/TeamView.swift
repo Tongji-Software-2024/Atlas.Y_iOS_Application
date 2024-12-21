@@ -5,7 +5,7 @@ struct TeamView: View {
         VStack {
             Text("TeamView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

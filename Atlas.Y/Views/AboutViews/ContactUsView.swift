@@ -5,7 +5,7 @@ struct ContactUsView: View {
         VStack {
             Text("ContactUsView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

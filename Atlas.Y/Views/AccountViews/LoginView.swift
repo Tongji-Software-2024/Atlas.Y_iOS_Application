@@ -5,7 +5,7 @@ struct LoginView: View {
         VStack {
             Text("LoginView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

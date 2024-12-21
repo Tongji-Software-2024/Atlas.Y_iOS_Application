@@ -64,7 +64,7 @@ struct ContentsView: View {
                     Image("DefaultLogo")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 58)
+                        .frame(height: 54)
                         .offset(y: 30)
                 }
                 ToolbarItem(placement: .bottomBar) {
@@ -87,6 +87,7 @@ struct ContentsView: View {
                     }
                 }
             }
+            BasicHomeView()
         }
     }
 }

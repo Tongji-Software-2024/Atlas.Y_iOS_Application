@@ -5,7 +5,7 @@ struct DynamicHomeView: View {
         VStack {
             Text("DynamicHomeView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

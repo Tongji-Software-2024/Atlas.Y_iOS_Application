@@ -5,7 +5,7 @@ struct FeedbackView: View {
         VStack {
             Text("FeedbackView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

@@ -5,7 +5,7 @@ struct UserGuideView: View {
         VStack {
             Text("UserGuideView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

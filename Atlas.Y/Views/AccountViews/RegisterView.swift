@@ -5,7 +5,7 @@ struct RegisterView: View {
         VStack {
             Text("RegisterView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

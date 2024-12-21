@@ -5,7 +5,7 @@ struct FAQsView: View {
         VStack {
             Text("FAQsView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 

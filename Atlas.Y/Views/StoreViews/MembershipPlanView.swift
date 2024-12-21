@@ -5,7 +5,7 @@ struct MembershipPlanView: View {
         VStack {
             Text("MembershipPlanView")
         }
-        .padding()
+        .frame(maxWidth: 1000)
     }
 }
 
