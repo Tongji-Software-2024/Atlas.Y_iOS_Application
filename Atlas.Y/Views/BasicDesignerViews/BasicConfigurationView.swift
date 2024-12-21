@@ -2,7 +2,7 @@ import SwiftUI
 import AVKit
 
 struct BasicConfigurationView: View {
-    @State private var showInfoAlert = false
+    @State private var showInfoSheet = false
     @State private var fastaButtonText = "Upload Fasta File"
     @State private var pdbButtonText = "Upload PDB File"
     @State private var fastaButtonColor = Color.white
@@ -69,12 +69,13 @@ struct BasicConfigurationView: View {
                     .fontWeight(.semibold)
 
                 Button(action: {
-                    showInfoAlert.toggle()
+                    showInfoSheet.toggle()
                 }) {
                     Image(systemName: "info.circle")
                 }
-                .alert(isPresented: $showInfoAlert) {
-                    Alert(title: Text("Information"), message: Text("Here is more info about positioning demand."), dismissButton: .default(Text("OK")))
+                .sheet(isPresented: $showInfoSheet) {
+                    InfoSheetView(isPresented: $showInfoSheet)
+                        .frame(width: 800, height: 540)
                 }
             }
             .padding(.top, 12)
@@ -149,10 +150,10 @@ struct BasicConfigurationView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            NavigationLink(destination: BasicConfigurationView()) {
+            NavigationLink(destination: BasicMatchingResultsView()) {
                 HStack {
                     Text("Start Matching")
-                        .fontWeight(.bold)
+                        .font(.system(size: 20, weight: .bold))
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
@@ -230,5 +231,49 @@ struct SolubilitySegmentedPicker: View {
         }
         .pickerStyle(SegmentedPickerStyle())
         .scaleEffect(CGSize(width: 1.4, height: 1.4))
+    }
+}
+
+struct InfoSheetView: View {
+    @Binding var isPresented: Bool
+
+    let data: [(String, String)] = [
+        ("NLS", "Cytoplasm -> Nucleus"),
+        ("NES", "Nucleus -> Cytoplasm"),
+        ("SP", "Cytoplasm -> Endoplasmic Reticulum Lumen"),
+        ("SP_TM", "Anchored on the Endoplasmic Reticulum Membrane"),
+        ("SP_GPI", "Cytoplasm -> Endoplasmic Reticulum Lumen -> Cytoplasm -> Cell Surface"),
+        ("GPI", "Cell Surface"),
+        ("TM", "Embedded in Cell Membrane"),
+        ("PTS", "Peroxisome"),
+        ("MT", "Mitochondria"),
+        ("LYS", "Lysosome")
+    ]
+
+    var body: some View {
+        VStack {
+            Text("Positioning Demand Table")
+                .font(.headline)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.bottom, 20)
+
+            List {
+                ForEach(data, id: \.0) { item in
+                    HStack {
+                        Text(item.0)
+                            .frame(maxWidth: 120, alignment: .leading)
+                        Text(item.1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+            }
+            .listStyle(InsetListStyle())
+            .scrollDisabled(true)
+
+            Button("OK") {
+                isPresented = false
+            }
+            .padding(.top, 30)
+        }
     }
 }
