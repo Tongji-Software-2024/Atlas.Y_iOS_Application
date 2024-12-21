@@ -1,5 +1,4 @@
 import SwiftUI
-import WebKit
 
 struct BasicResultDetailsView: View {
     var body: some View {
@@ -18,9 +17,6 @@ struct BasicResultDetailsView: View {
                     Text("Interactive 3D Structure")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fontWeight(.semibold)
-
-                    WebView(url: URL(string: "http://110.42.214.164")!)
-                        .frame(height: 300)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -118,17 +114,4 @@ struct ScrollableTextBox: View {
                 .stroke(Color.gray, lineWidth: 2)
         )
     }
-}
-
-struct WebView: UIViewRepresentable {
-    let url: URL
-
-    func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
-        let request = URLRequest(url: url)
-        webView.load(request)
-        return webView
-    }
-
-    func updateUIView(_ uiView: WKWebView, context: Context) {}
 }
