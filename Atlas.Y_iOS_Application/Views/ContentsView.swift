@@ -59,8 +59,13 @@ struct ContentsView: View {
                     Label("Support", systemImage: "questionmark.circle")
                 }
             }
-            .navigationTitle("Atlas.Y")
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Image("Logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 120, height: 40)
+                }
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
                         NavigationLink(destination: LoginView()) {
