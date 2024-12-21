@@ -1,4 +1,5 @@
 import SwiftUI
+import AVKit
 
 struct BasicConfigurationView: View {
     @State private var showInfoAlert = false
@@ -6,6 +7,22 @@ struct BasicConfigurationView: View {
     @State private var pdbButtonText = "Upload PDB File"
     @State private var fastaButtonColor = Color.white
     @State private var pdbButtonColor = Color.white
+    @State private var selectedButton: String? = nil
+    @State private var player: AVPlayer? = nil
+    @State private var isPlayingBasicVideo = false
+
+    let videoMapping: [String: (index: Int, initial: String, basic: String)] = [
+        "NLS": (0, "NLS_Initial", "NLS_Basic"),
+        "NES": (1, "NES_Initial", "NES_Basic"),
+        "SP": (2, "SP_Initial", "SP_Basic"),
+        "SP_TM": (3, "SP_TM_Initial", "SP_TM_Basic"),
+        "SP_GPI": (4, "SP_GPI_Initial", "SP_GPI_Basic"),
+        "GPI": (5, "GPI_Initial", "GPI_Basic"),
+        "TM": (6, "TM_Initial", "TM_Basic"),
+        "PTS": (7, "PTS_Initial", "PTS_Basic"),
+        "MT": (8, "MT_Initial", "MT_Basic"),
+        "LYS": (9, "LYS_Initial", "LYS_Basic")
+    ]
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -62,27 +79,42 @@ struct BasicConfigurationView: View {
             .padding(.top, 12)
 
             HStack(spacing: 15) {
-                Image("DefaultPositioningDemand")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 600)
+                if let player = player {
+                    VideoPlayer(player: player)
+                        .onAppear {
+                            player.seek(to: .zero)
+                            player.play()
+                        }
+                        .onDisappear {
+                            player.pause()
+                        }
+                        .frame(width: 600, height: 300)
+                } else {
+                    Image("DefaultPositioningDemand")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 600, height: 300)
+                }
 
                 ScrollView {
                     VStack(spacing: 10) {
-                        ForEach(["NLS", "NES", "SP", "SP_TM", "SP_GPI", "GPI", "TM", "PTS", "MT", "LYS"], id: \.self) { buttonLabel in
+                        ForEach(videoMapping.sorted(by: { $0.value.index < $1.value.index }), id: \.key) { buttonLabel, _ in
                             Button(buttonLabel) {
-                                // Button action here
+                                if (buttonLabel != selectedButton) {
+                                    handleButtonPress(buttonLabel)
+                                }
                             }
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 10)
-                            .background(Color.white)
-                            .foregroundColor(.blue)
+                            .background(selectedButton == buttonLabel ? Color.blue : Color.white)
+                            .foregroundColor(selectedButton == buttonLabel ? .white : .blue)
                             .cornerRadius(8)
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 2))
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(1)
+                    .padding(.horizontal, 1)
+                    .padding(.vertical, 4)
                 }
             }
             .frame(height: 300)
@@ -124,6 +156,38 @@ struct BasicConfigurationView: View {
             .padding(.top, 20)
         }
         .frame(maxWidth: 1000)
+    }
+
+    func handleButtonPress(_ buttonLabel: String) {
+        selectedButton = buttonLabel
+        isPlayingBasicVideo = false
+        if let videoPair = videoMapping[buttonLabel] {
+            let initialURL = Bundle.main.url(forResource: videoPair.initial, withExtension: "mp4")
+            let basicURL = Bundle.main.url(forResource: videoPair.basic, withExtension: "mp4")
+            if let initialURL = initialURL, let basicURL = basicURL {
+                player?.pause()
+                NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
+                let initialPlayerItem = AVPlayerItem(url: initialURL)
+                player = AVPlayer(playerItem: initialPlayerItem)
+                player?.actionAtItemEnd = .none
+                NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: initialPlayerItem, queue: .main) { _ in
+                    if self.selectedButton == buttonLabel {
+                        let basicPlayerItem = AVPlayerItem(url: basicURL)
+                        self.player?.replaceCurrentItem(with: basicPlayerItem)
+                        self.player?.actionAtItemEnd = .none
+                        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: basicPlayerItem, queue: .main) { _ in
+                            if self.selectedButton == buttonLabel {
+                                self.player?.seek(to: .zero)
+                                self.player?.play()
+                            }
+                        }
+
+                        self.player?.play()
+                    }
+                }
+                player?.play()
+            }
+        }
     }
 }
 
