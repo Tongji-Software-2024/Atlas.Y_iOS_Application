@@ -6,13 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		164B49362D16B43B00535F8E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 164B49352D16B43B00535F8E /* README.md */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		164B490D2D16B36C00535F8E /* Atlas.Y_iOS_Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.Y_iOS_Application.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		164B49352D16B43B00535F8E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -39,7 +34,6 @@
 			children = (
 				164B490F2D16B36C00535F8E /* Atlas.Y_iOS_Application */,
 				164B490E2D16B36C00535F8E /* Products */,
-				164B49352D16B43B00535F8E /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,7 +109,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				164B49362D16B43B00535F8E /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
