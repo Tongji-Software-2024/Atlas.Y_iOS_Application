@@ -10,6 +10,7 @@ struct BasicConfigurationView: View {
     @State private var selectedButton: String? = nil
     @State private var player: AVPlayer? = nil
     @State private var isPlayingBasicVideo = false
+    @State private var isLoadingVideo = false
 
     let videoMapping: [String: (index: Int, initial: String, basic: String)] = [
         "NLS": (0, "NLS_Initial", "NLS_Basic"),
@@ -79,7 +80,13 @@ struct BasicConfigurationView: View {
             .padding(.top, 12)
 
             HStack(spacing: 15) {
-                if let player = player {
+                if isLoadingVideo {
+                    Image("DefaultPositioningDemand")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 600, height: 300)
+                }
+                else if let player = player {
                     VideoPlayer(player: player)
                         .onAppear {
                             player.seek(to: .zero)
@@ -161,6 +168,7 @@ struct BasicConfigurationView: View {
     func handleButtonPress(_ buttonLabel: String) {
         selectedButton = buttonLabel
         isPlayingBasicVideo = false
+        isLoadingVideo = true
         if let videoPair = videoMapping[buttonLabel] {
             let initialURL = Bundle.main.url(forResource: videoPair.initial, withExtension: "mp4")
             let basicURL = Bundle.main.url(forResource: videoPair.basic, withExtension: "mp4")
@@ -181,8 +189,8 @@ struct BasicConfigurationView: View {
                                 self.player?.play()
                             }
                         }
-
                         self.player?.play()
+                        self.isLoadingVideo = false
                     }
                 }
                 player?.play()
