@@ -61,7 +61,7 @@ struct ContentsView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Image("Logo")
+                    Image("DefaultLogo")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 58)
