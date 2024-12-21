@@ -64,7 +64,8 @@ struct ContentsView: View {
                     Image("Logo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 120, height: 40)
+                        .frame(height: 58)
+                        .offset(y: 30)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
