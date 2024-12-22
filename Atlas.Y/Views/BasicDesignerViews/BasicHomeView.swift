@@ -36,13 +36,13 @@ struct BasicHomeView: View {
             }
             .padding(.bottom, 10)
 
-            TableView()
+            BasicTableView()
         }
         .frame(maxWidth: 1000)
     }
 }
 
-struct TableView: View {
+struct BasicTableView: View {
     let data = [
         ["21 Dec. 2024 09:50", "KQC45421.fasta", "KQC45421.pdb", "MT"],
         ["21 Dec. 2024 10:32", "NP011802.fasta", "NP011802.pdb", "SP"],
@@ -59,19 +59,19 @@ struct TableView: View {
                     Image(systemName: "clock")
                         .opacity(0)
                     Text("TIME")
-                        .fontWeight(.bold)
+                        .font(.system(size: 14, weight: .bold))
                         .frame(maxWidth: .infinity, alignment: .center)
                     Spacer()
                     Text("SEQUENCE / FASTA")
-                        .fontWeight(.bold)
+                        .font(.system(size: 14, weight: .bold))
                         .frame(maxWidth: .infinity, alignment: .center)
                     Spacer()
                     Text("PDB")
-                        .fontWeight(.bold)
+                        .font(.system(size: 14, weight: .bold))
                         .frame(maxWidth: .infinity, alignment: .center)
                     Spacer()
                     Text("SUBCELLULAR POSITION")
-                        .fontWeight(.bold)
+                        .font(.system(size: 14, weight: .bold))
                         .frame(maxWidth: .infinity, alignment: .center)
                     Spacer()
                 }
