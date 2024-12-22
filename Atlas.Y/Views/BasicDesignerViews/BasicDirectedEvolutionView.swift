@@ -1,27 +1,29 @@
 import SwiftUI
 
-struct BasicMatchingResultsView: View {
-    @State private var data: [FusionProteinData] = {
-        var items = [FusionProteinData]()
-        let fusionProteins = (1...32).map { String(format: "FP%04d", $0) }
-        for fusionProtein in fusionProteins {
-            let signal = String(format: "SP%04d", Int.random(in: 1000...9999))
-            let linker = String(format: "LK%04d", Int.random(in: 1000...9999))
-            let stability = Double.random(in: 100...500)
-            items.append(FusionProteinData(fusionProtein: fusionProtein, signal: signal, linker: linker, stability: stability))
+struct BasicDirectedEvolutionView: View {
+    @State private var data: [VariatProteinData] = {
+        var items = [VariatProteinData]()
+        let variatProteins = (1...114).map { String(format: "VR%04d", $0) }
+        for variatProtein in variatProteins {
+            let firstLetter = Character(UnicodeScalar(Int.random(in: 65...90))!)
+            let number = Int.random(in: 1...100)
+            let lastLetter = Character(UnicodeScalar(Int.random(in: 65...90))!)
+            let mutant = "\(firstLetter)\(number)\(lastLetter)"
+            let score = Double.random(in: 1...4)
+            items.append(VariatProteinData(variatProtein: variatProtein, mutant: mutant, score: score))
         }
-        return items.sorted { $0.stability < $1.stability }
+        return items
     }()
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom, spacing: 40) {
-                Text("Matching Results")
+                Text("Directed Evolution Results")
                     .font(.largeTitle)
                     .fontWeight(.bold)
 
                 HStack(spacing: 8) {
-                    Text("32")
+                    Text("114")
                         .foregroundColor(.blue)
                         .font(.title2)
                         .fontWeight(.semibold)
@@ -35,24 +37,24 @@ struct BasicMatchingResultsView: View {
 
             HStack(spacing: 40) {
                 HStack(spacing: 8) {
-                    Text("SEQUENCE / FASTA:")
+                    Text("FUSION PROTEIN:")
                         .foregroundColor(.blue)
                         .bold()
-                    Text("P00445.fasta")
+                    Text("FP0001")
                 }
 
                 HStack(spacing: 8) {
-                    Text("PDB:")
+                    Text("SIGNAL:")
                         .foregroundColor(.blue)
                         .bold()
-                    Text("1B4L.pdb")
+                    Text("SP0088")
                 }
 
                 HStack(spacing: 8) {
-                    Text("SUBCELLULAR POSITION:")
+                    Text("LINKER:")
                         .foregroundColor(.blue)
                         .bold()
-                    Text("NES")
+                    Text("LK0011")
                 }
             }
             .font(.subheadline)
@@ -70,13 +72,11 @@ struct BasicMatchingResultsView: View {
             ScrollView {
                 VStack(spacing: 0) {
                     HStack {
-                        Text("Fusion Protein")
+                        Text("Variant ID")
                             .frame(maxWidth: .infinity, alignment: .center)
-                        Text("Signal")
+                        Text("Mutant")
                             .frame(maxWidth: .infinity, alignment: .center)
-                        Text("Linker")
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        Text("Stability")
+                        Text("Evolution Score")
                             .frame(maxWidth: .infinity, alignment: .center)
                     }
                     .font(.headline)
@@ -85,15 +85,13 @@ struct BasicMatchingResultsView: View {
                     .foregroundColor(.white)
 
                     ForEach(data) { item in
-                        NavigationLink(destination: BasicResultDetailsView()) {
+                        NavigationLink(destination: BasicVariantDetailsView()) {
                             HStack {
-                                Text(item.fusionProtein)
+                                Text(item.variatProtein)
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                Text(item.signal)
+                                Text(item.mutant)
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                Text(item.linker)
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                Text(String(format: "%.2f", item.stability))
+                                Text(String(format: "%.6f", item.score))
                                     .frame(maxWidth: .infinity, alignment: .center)
                             }
                             .padding(.vertical, 12)
@@ -112,13 +110,12 @@ struct BasicMatchingResultsView: View {
 }
 
 #Preview {
-    BasicMatchingResultsView()
+    BasicDirectedEvolutionView()
 }
 
-struct FusionProteinData: Identifiable {
+struct VariatProteinData: Identifiable {
     let id = UUID()
-    let fusionProtein: String
-    let signal: String
-    let linker: String
-    let stability: Double
+    let variatProtein: String
+    let mutant: String
+    let score: Double
 }

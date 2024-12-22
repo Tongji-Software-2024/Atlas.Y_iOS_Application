@@ -18,17 +18,9 @@ struct BasicStabilityEvaluationView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom, spacing: 40) {
-                Text("Function Evaluation")
+                Text("Stability Evaluation")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-
-                HStack(spacing: 8) {
-                    Text("Local CAD Score")
-                        .foregroundColor(.blue)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                }
-                .padding(.bottom, 2)
             }
             .padding(.bottom, 10)
 

@@ -3,6 +3,43 @@ import SwiftUI
 struct BasicResultDetailsView: View {
     var body: some View {
         VStack(alignment: .leading) {
+            HStack(alignment: .bottom, spacing: 40) {
+                Text("Fusion Details")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+            }
+            .padding(.bottom, 10)
+
+            HStack(spacing: 40) {
+                HStack(spacing: 8) {
+                    Text("FUSION PROTEIN:")
+                        .foregroundColor(.blue)
+                        .bold()
+                    Text("FP0001")
+                }
+
+                HStack(spacing: 8) {
+                    Text("SIGNAL:")
+                        .foregroundColor(.blue)
+                        .bold()
+                    Text("SP0088")
+                }
+
+                HStack(spacing: 8) {
+                    Text("LINKER:")
+                        .foregroundColor(.blue)
+                        .bold()
+                    Text("LK0011")
+                }
+            }
+            .font(.subheadline)
+
+            Divider()
+                .frame(height: 1)
+                .background(Color.gray.opacity(0.5))
+                .padding(.top, 5)
+                .padding(.bottom, 20)
+
             HStack(spacing: 15) {
                 VStack(alignment: .center) {
                     Text("Fusion Protein")
@@ -83,9 +120,10 @@ struct BasicResultDetailsView: View {
                     .cornerRadius(8)
                 }
             }
-            .padding(.vertical, 10)
+            .padding(.top, 16)
+            .padding(.bottom, 10)
 
-            NavigationLink(destination: BasicGlobalCADScoreView()) {
+            NavigationLink(destination: BasicDirectedEvolutionView()) {
                 HStack {
                     Text("Sequence Optimization")
                         .font(.system(size: 18, weight: .bold))
