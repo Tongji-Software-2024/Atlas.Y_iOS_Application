@@ -35,9 +35,6 @@ struct ContentsView: View {
                 }
 
                 DisclosureGroup {
-                    NavigationLink(destination: TeamView()) {
-                        Text("Team")
-                    }
                     NavigationLink(destination: WikiView()) {
                         Text("Wiki")
                     }

@@ -1,0 +1,13 @@
+{
+  "data" : [
+    {
+      "filename" : "UserGuide.pdf",
+      "idiom" : "universal",
+      "universal-type-identifier" : "com.adobe.pdf"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
