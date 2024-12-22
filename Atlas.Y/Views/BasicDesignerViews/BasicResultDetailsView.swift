@@ -17,6 +17,11 @@ struct BasicResultDetailsView: View {
                     Text("Interactive 3D Structure")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fontWeight(.semibold)
+                        .padding(.top, 10)
+
+                    Image("ProteinCartoonView")
+                        .resizable()
+                        .scaledToFit()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -33,6 +38,7 @@ struct BasicResultDetailsView: View {
                     Text("Linker")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fontWeight(.semibold)
+                        .padding(.top, 10)
 
                     ScrollableTextBox(
                         text: "AEAAAKEAAAKEAAAK",
@@ -42,17 +48,18 @@ struct BasicResultDetailsView: View {
                     Text("Target Protein")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fontWeight(.semibold)
+                        .padding(.top, 10)
 
                     ScrollableTextBox(
                         text: "MVQAVAVLKGDAGVSGVVKFEQASESEPTTVSYEIAGNSPNAERGFHIHEFGDATNGCVSAGPHFNPFKKTHGAPTDEVRHVGDMGNVKTDENGVAKGSFKDSLIKLIGPTSVVGRSVVIHAGQDDLGKGDTEESLKTGNAGPRPACGVIGLTN",
-                        height: 200
+                        height: 246
                     )
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             HStack(spacing: 15) {
-                NavigationLink(destination: BasicConfigurationView()) {
+                NavigationLink(destination: BasicGlobalCADScoreView()) {
                     HStack {
                         Text("Function Evaluation")
                             .font(.system(size: 18, weight: .bold))
@@ -64,7 +71,7 @@ struct BasicResultDetailsView: View {
                     .cornerRadius(8)
                 }
 
-                NavigationLink(destination: BasicConfigurationView()) {
+                NavigationLink(destination: BasicGlobalCADScoreView()) {
                     HStack {
                         Text("Stability Evaluation")
                             .font(.system(size: 18, weight: .bold))
@@ -76,8 +83,9 @@ struct BasicResultDetailsView: View {
                     .cornerRadius(8)
                 }
             }
+            .padding(.vertical, 10)
 
-            NavigationLink(destination: BasicConfigurationView()) {
+            NavigationLink(destination: BasicGlobalCADScoreView()) {
                 HStack {
                     Text("Sequence Optimization")
                         .font(.system(size: 18, weight: .bold))
