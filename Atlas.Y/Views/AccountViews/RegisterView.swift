@@ -1,11 +1,129 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var showPassword: Bool = false
+    @State private var password2: String = ""
+    @State private var showPassword2: Bool = false
+
     var body: some View {
-        VStack {
-            Text("RegisterView")
+        VStack(spacing: 20) {
+            Text("Register")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.bottom, 20)
+
+            TextField("E-mail", text: $email)
+                .keyboardType(.emailAddress)
+                .autocapitalization(.none)
+                .padding()
+                .background(Color(UIColor.secondarySystemBackground))
+                .cornerRadius(8)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
+                .padding(.horizontal)
+
+            HStack {
+                if showPassword {
+                    TextField("Password", text: $password)
+                        .autocapitalization(.none)
+                } else {
+                    SecureField("Password", text: $password)
+                }
+                Button(action: {
+                    showPassword.toggle()
+                }) {
+                    Image(systemName: showPassword ? "eye.slash" : "eye")
+                        .foregroundColor(.gray)
+                }
+            }
+            .padding()
+            .background(Color(UIColor.secondarySystemBackground))
+            .cornerRadius(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+            )
+            .padding(.horizontal)
+
+            HStack {
+                if showPassword2 {
+                    TextField("Confirm Password", text: $password2)
+                        .autocapitalization(.none)
+                } else {
+                    SecureField("Confirm Password", text: $password2)
+                }
+                Button(action: {
+                    showPassword2.toggle()
+                }) {
+                    Image(systemName: showPassword2 ? "eye.slash" : "eye")
+                        .foregroundColor(.gray)
+                }
+            }
+            .padding()
+            .background(Color(UIColor.secondarySystemBackground))
+            .cornerRadius(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+            )
+            .padding(.horizontal)
+
+            Button(action: {}) {
+                Text("Register")
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    .padding(.horizontal)
+            }
+            .padding(.vertical, 20)
+
+            HStack(spacing: 10) {
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundColor(Color.gray.opacity(0.5))
+                    .padding(.top, 5)
+                    .padding(.bottom, 20)
+                Text("or")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.gray)
+                    .offset(y: -8)
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundColor(Color.gray.opacity(0.5))
+                    .padding(.top, 5)
+                    .padding(.bottom, 20)
+            }
+            .padding(.horizontal)
+
+            HStack(spacing: 20) {
+                Image("Apple")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+                Image("Google")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+                Image("Facebook")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+            }
+
+            Button(action: {}) {
+                Text("Forgot Password?")
+                    .foregroundColor(.blue)
+            }
+            .padding(.top, 30)
         }
-        .frame(maxWidth: 1000)
+        .frame(width: 500)
     }
 }
 
