@@ -56,7 +56,12 @@ struct BasicMatchingResultsView: View {
                 }
             }
             .font(.subheadline)
-            .padding(.bottom, 20)
+
+            Divider()
+                .frame(height: 1)
+                .background(Color.gray.opacity(0.5))
+                .padding(.top, 5)
+                .padding(.bottom, 20)
 
             Text("Click to select an entry")
                 .foregroundColor(.gray)

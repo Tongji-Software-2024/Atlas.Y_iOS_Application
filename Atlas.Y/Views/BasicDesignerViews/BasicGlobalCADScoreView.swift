@@ -37,11 +37,16 @@ struct BasicGlobalCADScoreView: View {
                     Text("LINKER:")
                         .foregroundColor(.blue)
                         .bold()
-                    Text("0011")
+                    Text("LK0011")
                 }
             }
             .font(.subheadline)
-            .padding(.bottom, 20)
+
+            Divider()
+                .frame(height: 1)
+                .background(Color.gray.opacity(0.5))
+                .padding(.top, 5)
+                .padding(.bottom, 20)
 
             HStack(spacing: 15) {
                 VStack(alignment: .center) {
@@ -70,13 +75,13 @@ struct BasicGlobalCADScoreView: View {
                     InformaionTextBox(
                         text: "CAD-score values range from 0 to 1, where values close to 1 indicate that the fusion protein is highly similar to the original protein and retains its function intact, while values close to 0 indicate that the structure is more different and the function is significantly changed.",
                         title: "Scoring Instructions",
-                        height: 145
+                        height: 147
                     )
 
                     Text("Evaluation")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fontWeight(.semibold)
-                        .padding(.top, 14)
+                        .padding(.top, 13)
 
                     Text("High CAD Score")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,7 +93,7 @@ struct BasicGlobalCADScoreView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.gray)
 
-                    NavigationLink(destination: BasicGlobalCADScoreView()) {
+                    NavigationLink(destination: BasicLocalCADScoreView()) {
                         HStack {
                             Text("Focus on Specific Sites")
                                 .font(.system(size: 18, weight: .bold))
@@ -99,7 +104,7 @@ struct BasicGlobalCADScoreView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                     }
-                    .padding(.top, 14)
+                    .padding(.top, 13)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
