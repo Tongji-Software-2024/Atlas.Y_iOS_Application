@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct WikiView: View {
+    @State private var currentIndex: Int = 0
+
     let images = [
         "WikiPresentation1",
         "WikiPresentation2",
@@ -9,24 +11,18 @@ struct WikiView: View {
         "WikiPresentation5",
         "WikiPresentation6"
     ]
-    @State private var currentIndex: Int = 0
+
     var body: some View {
         VStack(spacing: 30) {
             GeometryReader { geometry in
                 HStack(spacing: 15) {
                     ForEach(0..<images.count, id: \.self) { index in
-                        AsyncImage(url: URL(string: images[index])) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: (geometry.size.width - 30) / 3, height: 200)
-                                .clipped()
-                                .cornerRadius(10)
-                        } placeholder: {
-                            Color.gray.opacity(0.3)
-                                .frame(width: (geometry.size.width - 30) / 3, height: 200)
-                                .cornerRadius(10)
-                        }
+                        Image(images[index])
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: (geometry.size.width - 30) / 3, height: 200)
+                            .clipped()
+                            .cornerRadius(10)
                     }
                 }
                 .frame(width: geometry.size.width, alignment: .leading)
@@ -98,7 +94,7 @@ struct WikiView: View {
                 }
 
                 HStack {
-                    Link(destination: URL(string: "https://2024.igem.wiki/tongji-software")!) {
+                    NavigationLink(destination: WebView()) {
                         Text("CLICK HERE")
                             .font(.system(size: 36, weight: .semibold))
                             .foregroundColor(.blue)
