@@ -22,6 +22,8 @@ struct UserGuideView: View {
         PDFViewer(pdfName: "UserGuide")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.white)
+            .navigationTitle("User Guide")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 
