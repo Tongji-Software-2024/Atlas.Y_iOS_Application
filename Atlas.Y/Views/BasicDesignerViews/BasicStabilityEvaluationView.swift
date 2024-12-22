@@ -93,7 +93,6 @@ struct BasicStabilityEvaluationView: View {
                     .border(Color.blue, width: 0.5)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxWidth: 1000)
         .padding()
