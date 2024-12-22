@@ -71,7 +71,7 @@ struct BasicResultDetailsView: View {
                     .cornerRadius(8)
                 }
 
-                NavigationLink(destination: BasicGlobalCADScoreView()) {
+                NavigationLink(destination: BasicStabilityEvaluationView()) {
                     HStack {
                         Text("Stability Evaluation")
                             .font(.system(size: 18, weight: .bold))
