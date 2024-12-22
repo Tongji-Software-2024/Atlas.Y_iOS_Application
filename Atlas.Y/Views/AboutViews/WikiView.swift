@@ -2,12 +2,12 @@ import SwiftUI
 
 struct WikiView: View {
     let images = [
-        "https://static.igem.wiki/teams/5503/wiki-presentations/presentation1.webp",
-        "https://static.igem.wiki/teams/5503/wiki-presentations/presentation3.webp",
-        "https://static.igem.wiki/teams/5503/wiki-presentations/presentation5.webp",
-        "https://static.igem.wiki/teams/5503/wiki-presentations/presentation2.webp",
-        "https://static.igem.wiki/teams/5503/wiki-presentations/presentation4.webp",
-        "https://static.igem.wiki/teams/5503/wiki-presentations/presentation6.webp"
+        "WikiPresentation1",
+        "WikiPresentation2",
+        "WikiPresentation3",
+        "WikiPresentation4",
+        "WikiPresentation5",
+        "WikiPresentation6"
     ]
     @State private var currentIndex: Int = 0
     var body: some View {
