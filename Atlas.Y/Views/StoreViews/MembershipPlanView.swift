@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MembershipPlanView: View {
     @State private var selectedPlan: Card? = nil
+    @State private var dialogVisible = false
 
     let cards: [Card] = [
         Card(
@@ -69,8 +70,23 @@ struct MembershipPlanView: View {
                 .padding(.bottom, 30)
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                 ForEach(cards.indices, id: \.self) { index in
-                    CardView(card: cards[index])
+                    CardView(card: cards[index]) {
+                        if !cards[index].prices.isEmpty {
+                            selectedPlan = cards[index]
+                            dialogVisible = true
+                        }
+                    }
                 }
+            }
+        }
+        .sheet(isPresented: $dialogVisible) {
+            if let plan = selectedPlan {
+                SubscriptionDialog(card: plan, isVisible: $dialogVisible)
+            }
+        }
+        .onChange(of: dialogVisible) { newValue in
+            if !newValue {
+                selectedPlan = nil
             }
         }
         .frame(maxWidth: 1000)
@@ -96,6 +112,7 @@ struct Price {
 
 struct CardView: View {
     let card: Card
+    let onSubscribe: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -124,7 +141,9 @@ struct CardView: View {
                 Button("Your current subscription") {}
                 .buttonStyle(DisabledButtonStyle())
             } else {
-                Button("Subscribe") {}
+                Button("Subscribe") {
+                    onSubscribe()
+                }
                 .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -155,6 +174,50 @@ struct DisabledButtonStyle: ButtonStyle {
             .background(Color.gray.opacity(0.3))
             .foregroundColor(.gray)
             .cornerRadius(8)
+    }
+}
+
+struct SubscriptionDialog: View {
+    let card: Card
+    @Binding var isVisible: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text(card.title)
+                .font(.title)
+                .fontWeight(.bold)
+            Text("Pleaes select the subscription plan that suits you!")
+                .foregroundColor(.gray)
+            VStack(spacing: 15) {
+                ForEach(card.prices.indices, id: \.self) { index in
+                    VStack {
+                        Text(card.prices[index].amount)
+                            .font(.system(size: 30, weight: .bold))
+                            .foregroundColor(.yellow)
+                        Text(card.prices[index].duration)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
+                    .frame(width: 600, height: 100)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 3)
+                }
+            }
+            .padding(.top, 12)
+            Button("Subscribe") {
+                isVisible = false
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            .padding(.top, 20)
+            Button("Cancel") {
+                isVisible = false
+            }
+            .buttonStyle(DisabledButtonStyle())
+        }
+        .padding(.horizontal, 30)
     }
 }
 
